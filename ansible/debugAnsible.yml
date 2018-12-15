@@ -1,0 +1,12 @@
+---
+- hosts: all
+  gather_facts: no
+  vars: 
+   local_home: "{{lookup('env','HOME')}}"
+  tasks:
+    - shell: /usr/bin/uptime
+      register: result
+
+    - debug: msg={{ result }}
+
+    - debug: msg={{ local_home }}

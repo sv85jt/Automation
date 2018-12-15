@@ -1,0 +1,40 @@
+
+- name: get the java version
+  shell: "java -version"
+  register: javaVersion
+  ignore_errors: yes
+
+
+- name: print the java version
+  debug: 
+    msg: "{{ javaVersion }}"
+
+
+- name: message to user is java is not installed
+  debug: msg="Java is not installed"
+  when: javaVersion.stdout == ""
+
+
+- name: trying to print java folder
+  debug: msg={{javaF}}
+
+
+- name: extract the jar tar file
+  unarchive: 
+    src: jdk-8u181-linux-x64.tar.gz
+    dest: /opt/
+    remote_src: no 
+
+
+- name: add java path in bashrc file
+  blockinfile:
+    path: ~/.bashrc
+    block: |
+        export JAVA_HOME="/opt/{{javaF}}"
+        export PATH=$JAVA_HOME/bin:$PATH
+
+
+- name: source the .bashrc file
+  shell: "source ~/.bashrc"
+
+ 

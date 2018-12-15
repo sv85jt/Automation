@@ -1,0 +1,8 @@
+---
+- hosts: all
+  gather_facts: false
+  tasks:
+    - name : Get the stat details of file 
+      stat : path="/tmp/kajal.txt"
+
+    

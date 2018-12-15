@@ -1,0 +1,17 @@
+---
+- hosts: all
+  gather_facts: no
+  vars: 
+   local_home: "{{lookup('env','HOME')}}"
+   sql_pass: pass123
+  tasks:
+    - shell: /usr/bin/uptime
+      register: result
+
+    - debug: msg={{ result }}
+
+    - debug: msg={{ local_home }}
+
+    - debug: msg={{ FIGHTHER }}
+
+    - debug: msg={{ sql_pass }}

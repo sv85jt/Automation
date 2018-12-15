@@ -1,0 +1,15 @@
+---
+- hosts: all
+  gather_facts: false
+  become: true
+  become_user: sham
+  tasks:
+    - name: creating simple text file with = style
+      file: path="/tmp/nina.txt" state=touch
+
+   
+    - name: "creating simple text file with : style"
+      file:
+        path: "/tmp/justin.txt"
+        state: touch
+

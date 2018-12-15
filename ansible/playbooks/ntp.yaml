@@ -1,0 +1,12 @@
+- hosts: all
+  gather_facts: no
+  tasks:
+    - name: To install NTP server
+      yum: 
+        name: ntp 
+        state: installed 
+
+    - name: Ensure the NTP is running
+      service: 
+        name: ntpd 
+        state: started
