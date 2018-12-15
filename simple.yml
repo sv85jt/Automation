@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: "{{ ip }}"
   gather_facts: false
   tasks:
    - shell: whoami
