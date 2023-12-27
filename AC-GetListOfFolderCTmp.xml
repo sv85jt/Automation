@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<InstructionDefinition Author="180314" Name="AC-GetListOfFolderCTmp" ReadablePayload="To Get info of Folder C Tmp" Description="To check if folder exist under c tmp" InstructionType="Question" InstructionTtlMinutes="10" ResponseTtlMinutes="10" Version="1.5" xmlns="http://schemas.1e.com/Tachyon/InstructionDefinition/1.0">
+  <Payload><![CDATA[// Query to get ERROR & WARNINGS records from System Window Logs
+@wmiApplication = "SELECT * FROM Win32_Directory WHERE NAME='C:\\\\tmp'";
+
+// Execute the query
+@resultsApplication = NativeServices.RunWmiQuery(Namespace:"root\\cimv2", Query:@wmiApplication);
+
+@result = select Caption, Drive, Hidden, FileType, Readable from @resultsApplication;
+
+IF(@result)
+    Select * From @result;
+ELSE
+    Select 'NF' as caption,'NF' as Drive, 'NF' as Hidden, 'NF' as FileType, 'NF' as Readable;
+ENDIF;
+]]></Payload>
+  <Comments>To check if folder exist</Comments>
+  <SchemaJson><![CDATA[[
+  {
+    "Name": "Caption",
+    "Type": "string",
+    "Length": 16
+  },
+  {
+    "Name": "Drive",
+    "Type": "string",
+    "Length": 4
+  },
+  {
+    "Name": "FileType",
+    "Type": "string",
+    "Length": 32
+  },
+  {
+    "Name": "Hidden",
+    "Type": "int64",
+    "Length": 0
+  },
+  {
+    "Name": "Readable",
+    "Type": "int64",
+    "Length": 0
+  }
+]]]></SchemaJson>
+</InstructionDefinition>
